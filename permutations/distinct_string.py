@@ -1,14 +1,33 @@
-def permutations(string):
-    result = set([string])
-    if len(string) == 2:
-        result.add(string[1] + string[0])
+from collections import Counter
+from typing import List
 
-    elif len(string) > 2:
-        for i, c in enumerate(string):
-            for s in permutations(string[:i] + string[i + 1:]):
-                result.add(c + s)
 
-    return list(result)
+class Solution:
+
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        results = []
+
+        def backtrack(comb, counter):
+            if len(comb) == len(nums):
+                # make a deep copy of the resulting permutation,
+                # since the permutation would be backtracked later.
+                results.append(list(comb))
+                return
+
+            for num in counter:
+                if counter[num] > 0:
+                    # add this number into the current combination
+                    comb.append(num)
+                    counter[num] -= 1
+                    # continue the exploration
+                    backtrack(comb, counter)
+                    # revert the choice for the next exploration
+                    comb.pop()
+                    counter[num] += 1
+
+        backtrack([], Counter(nums))
+
+        return results
 
 
 if __name__ == '__main__':

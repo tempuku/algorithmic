@@ -1,6 +1,7 @@
 def helper(array, used, perm=[], result=[]):
     if len(array) == len(perm):
         result.append(perm.copy())
+        return result
     i = 0
     while i < len(array):
         if used[i]:
@@ -24,5 +25,5 @@ def permutations(array):
 
 
 if __name__ == '__main__':
-    result = permutations([1,2,3])
+    result = permutations([1, 1, 2, 3])
     print(result)
