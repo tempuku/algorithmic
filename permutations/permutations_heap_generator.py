@@ -1,13 +1,19 @@
-def all_perms(elements):
-    if len(elements) <= 1:
-        yield elements
+def permutations(a, size):
+    if size == 1:
+        yield a
+        pass
     else:
-        for perm in all_perms(elements[1:]):
-            for i in range(len(elements)):
-                # nb elements[0:1] works in both string and list contexts
-                yield perm[:i] + elements[0:1] + perm[i:]
+        for i in range(size):
+            yield from permutations(a, size-1)
+            if size & 1:
+                a[0], a[size-1] = a[size-1], a[0]
+            else:
+                a[i], a[size-1] = a[size-1], a[i]
 
 
 if __name__ == '__main__':
-    result = all_perms([1, 2, 3, 4, 5, 6, 7, 8])
-    print(list(result))
+    a = 0
+    for x in permutations([1, 2, 3], 3):
+        if a % 2 != 0:
+            print(x)
+        a += 1

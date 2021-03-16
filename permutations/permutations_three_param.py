@@ -3,9 +3,7 @@ def permutations(array, perm=[], result=[]):
         result.append(perm.copy())
     for i in range(len(array)):
         perm.append(array[i])
-        print(f'{perm=}')
         rest = array[:i] + array[i+1:]
-        print(f'{rest=}')
         ps = permutations(rest, perm, result)
         perm.pop()
     return result
